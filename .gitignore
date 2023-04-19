@@ -1,0 +1,10 @@
+# virtual environment
+.venv/
+
+
+# directories
+git-scripts
+
+# files
+test/functions/confidential.txt
+02-scripts/functions/confidential.txt

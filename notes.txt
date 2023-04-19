@@ -1,0 +1,88 @@
+Notes about the analysis
+
+2023-02-12
+- Run jobs in cops node
+- save results from jobs in /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/results/
+- save results as h5 files in /cfs/home/mabi3848/id10-ferritin-2022/proc-results
+  Need to change this: Anita and Sonja will work on it so we need a directory accessible from everyone
+
+2023-03-28
+- save analysis h5 files in /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/h5-files/
+
+2023-03-29
+SBATCH JOB FROM FYSIKUM
+#!/bin/bash -l
+
+#SBATCH -p cops           # Partition
+#SBATCH -J findprimes     # Job name
+#SBATCH -N 1              # Number of nodes
+#SBATCH -t 0-00:01:00     # Wall time (days-H:M:S), here = 1 hour
+#SBATCH -o slurm-%j.out   # Job output file
+
+module load Mathematica/12.1
+
+# Optionally limit the number of launched kernels
+# export MAX_CORES_LIMIT=8
+
+math -script findprimes.m
+
+
+SBATCH FROM MID 
+#!/bin/bash
+#SBATCH --job-name=midtools
+#SBATCH --output=/gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/job-sub/jobs/2022-08-19T16-55-50-770-run137.job.out
+#SBATCH --error=/gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/job-sub/jobs/2022-08-19T16-55-50-770-run137.job.err
+#SBATCH --partition=upex
+#SBATCH --exclusive
+#SBATCH --time 06:00:00
+
+source /gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/.venv/bin/activate
+echo "SLURM_JOB_ID           $SLURM_JOB_ID"
+type midtools
+
+ulimit -n 4096
+ulimit -c unlimited
+midtools /gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/job-sub/tmp/tmp_setup-config_2022-08-19_T16-55-50.yml 1110 -r 137 --out-dir ./analyzed_runs/p003094 --pulses-per-train 100 --pulse-step 1 --datdir /gpfs/exfel/exp/MID/202202/p003094/proc/ --last-train 200 --first-cell 2
+
+exit
+
+
+2023-03-31
+- before running python scripts: 
+      source .venv/bin/activate
+
+2023-04-12
+- convert2hdf5.py gives an error: debug and ask Sonja 
+
+2023-04-14
+- made a new mask with Anita (cryo-mask-230412.npy) which aggressively masks a lot of pixels
+
+2023-04-17
+- testing new mask cryo-mask-230412.npy using python analysis-script.py ferritin_conc120_gly_50_2 2 --proc (jobs 324047_[0-3])
+- mask che funziona probabilmente: cryo-mask-230417_roersa.npy
+- and setup file setup-roersa-cryo-230417.pkl with qv_init = [(np.arange(.028, .48, .04), .04)] (qvals=[0.028 0.068 0.108 0.148 0.188 0.228 0.268 0.308 0.348 0.388 0.428 0.468], len(qvals)=12)
+- UPDATE: the latest mask is "cryo-mask-230417_03.npy" and the setupfile "setup-fullmask-cryo-230417.pkl" with same qvals as above. Both in directory /cfs/home/mabi3848/id10-ferritin-2022/test/setups
+
+- created the new folder structure for running the analysis: 01-notebooks, 02-scripts, 03-source, 04-jobs. While in the data folder we have processed with results, h5-files, mask-setup
+
+start first real analysis with:
+  + ferritin_conc_gly_50_6_0002 (job 324100): 250K, 100%, 4reps per spot, 1-460reps, 0.0002s 5k frames
+  + ferritin_conc_gly_50_6_0003 (jobs 324102 and 324119): 240K, 100%, 4reps per spot, 1-460reps, 0.0002s 5k frames
+
+
+2023-04-18
+  + ferritin_conc_gly_50_6_0004 (job 324126): 220K, 100%, 4reps, 1-460reps, 0.0002s 5k frames
+  + ferritin_conc_gly_50_6_0005 (job 324129): 220K, 45%, 4reps, 1-460reps, 0.0004s 5k frames
+  + ferritin_conc_gly_50_6_0006 (job 324130): 220K, 22.5%, 4reps, 1-460reps, 0.0004s 5k frames
+
+python analysis-script.py ferritin_conc_gly_50_6 6 --nprocs 4 --proc
+len(filelist) = 320
+filelist[0] = /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/ferritin_conc_gly_50_6/ferritin_conc_gly_50_6_0006/scan0001
+filelist[-1] = /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/ferritin_conc_gly_50_6/ferritin_conc_gly_50_6_0006/scan0320
+With arguments: `/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/cryo-mask-230417_03.npy /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/setup-fullmask-cryo-230417.pkl 10 10000 ferritin_conc_gly_50_6_0006`
+Generating and submitting sbatch for job 2023-04-18T11-01-27-552
+Submitted batch job 324130
+
+2023-04-19
+  + sbatch convert_job.sh ferritin_conc_gly_50_6 6 4 (324236      cops id10-con mabi3848  R    2:32:59      1 c03n12)
+  

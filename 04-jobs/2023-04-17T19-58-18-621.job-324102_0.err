@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "proc-data-xpcs.py", line 39, in <module>
+    run_analysis(int(proc_id), int(slurm_id), maskfile, setupfile, int(first), int(last), outdir)
+  File "proc-data-xpcs.py", line 27, in run_analysis
+    ana.connect(folder)
+  File "/cfs/home/mabi3848/id10-ferritin-2022/.venv/lib/python3.8/site-packages/Xana/ProcData/Xdata.py", line 45, in connect
+    self._get_meta()
+  File "/cfs/home/mabi3848/id10-ferritin-2022/.venv/lib/python3.8/site-packages/Xana/ProcData/Xdata.py", line 120, in _get_meta
+    self.get_attributes(
+  File "/cfs/home/mabi3848/id10-ferritin-2022/.venv/lib/python3.8/site-packages/Xana/ProcData/getmeta.py", line 58, in get_attrs_h5
+    with h5py.File(filename, "r", driver=obj.h5opt["driver"]) as f:
+  File "/cfs/home/mabi3848/id10-ferritin-2022/.venv/lib/python3.8/site-packages/h5py/_hl/files.py", line 533, in __init__
+    fid = make_fid(name, mode, userblock_size, fapl, fcpl, swmr=swmr)
+  File "/cfs/home/mabi3848/id10-ferritin-2022/.venv/lib/python3.8/site-packages/h5py/_hl/files.py", line 226, in make_fid
+    fid = h5f.open(name, flags, fapl=fapl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 106, in h5py.h5f.open
+OSError: Unable to open file (truncated file: eof = 23409821, sblock->base_addr = 0, stored_eof = 37940432)

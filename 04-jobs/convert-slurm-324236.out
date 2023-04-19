@@ -1,0 +1,19 @@
+SLURM_JOB_ID           324236
+SLURM_ARRAY_TASK_ID    
+Try loading database:
+	/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/results/ferritin_conc_gly_50_6_0003/p324121/analysis_database.pkl
+Successfully loaded database
+    use sample  ... rep scannumber
+0  True         ...   2        113
+1  True         ...   2        113
+2  True         ...   3        114
+3  True         ...   3        114
+4  True         ...   4        115
+5  True         ...   4        115
+6  True         ...   1        116
+7  True         ...   1        116
+8  True         ...   2        117
+9  True         ...   2        117
+
+[10 rows x 18 columns]
+nqI = 1000, nq = 12, ntimes = 4990, nxpcs = 560, nsaxs = 560 ndelay = 80, nttc = 11

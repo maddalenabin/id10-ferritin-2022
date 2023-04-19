@@ -1,0 +1,17 @@
+#!/bin/bash
+#SBATCH -p cops
+#SBATCH --output=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/2023-04-18T11-00-20-662.job-%A_%a.out
+#SBATCH --error=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/2023-04-18T11-00-20-662.job-%A_%a.err
+#SBATCH --time 24:00:00
+#SBATCH --job-name=id10-xpcs
+#SBATCH --array=0-3
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=maddalenabin@hotmail.com
+
+source /cfs/home/mabi3848/id10-ferritin-2022/.venv/bin/activate
+echo "SLURM_JOB_ID           $SLURM_JOB_ID"
+echo "SLURM_ARRAY_TASK_ID    $SLURM_ARRAY_TASK_ID"
+
+python proc-data-xpcs.py $SLURM_ARRAY_TASK_ID $SLURM_JOB_ID /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/cryo-mask-230417_03.npy /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/setup-fullmask-cryo-230417.pkl 10 10000 ferritin_conc_gly_50_6_0004
+
+exit
