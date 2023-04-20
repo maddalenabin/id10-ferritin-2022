@@ -57,6 +57,8 @@ def convert2hdf5(xana, filename):
 
     path = '/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/h5-files/'
     with h5py.File(path+filename, 'a') as f:
+        print("\n\npath+filename", path+filename, "\n\n")
+
         ttcs = f.create_dataset('/xpcs/ttcs/ttcs', shape=(nxpcs, nttc, ntimes, ntimes), dtype=np.float32, compression="gzip")
         g2s = f.create_dataset('/xpcs/g2s/g2s', shape=(nxpcs, nq, ndelay), dtype=np.float32, compression="gzip")
         I = f.create_dataset('/saxs/I', shape=(nsaxs, nqI), dtype=np.float32, compression="gzip")
@@ -101,5 +103,5 @@ if __name__ == "__main__":
     print(xana.db.head(10))
 
     if args.proc:
+        print("\n\nfilename + '.h5'", filename + '.h5', "\n\n")
         convert2hdf5(xana, filename + '.h5')
-
