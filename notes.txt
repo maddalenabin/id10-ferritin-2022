@@ -94,3 +94,11 @@ Submitted batch job 324130
       git branch -M main
       git push -u origin main
   + sbatch convert_job.sh ferritin_conc_gly_50_6 5 4 (jobid 324295)
+
+
+2023-04-21
+TO DO IN THE NEXT DAYS
+  - ttcs loading way too slow
+  - filter before the convert2hdf5.py and then save the averaged filtered ttcs in a h5 file
+  - add elog entries in h5 file
+  
