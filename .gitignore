@@ -2,19 +2,30 @@
 .venv/
 
 # directories
-git-scripts/
-04-jobs/
+./git-scripts/*
+./04-jobs/*
 
 # files
-test/functions/confidential.txt
-02-scripts/functions/confidential.txt
+./test/functions/confidential.txt
+./02-scripts/functions/confidential.txt
 
 # miscellanea in tests
-test/*.yml
-test/jobs_stopped
-test/jobs
-test/some_shit_img.npy
-test/test_email.py
-test/results
-test/image_for_mask.npy
-test/hdf5
+./test/*.yml
+./test/jobs_stopped
+./test/jobs
+./test/some_shit_img.npy
+./test/test_email.py
+./test/results
+./test/image_for_mask.npy
+./test/hdf5
+
+# # Jupyter Notebook
+# .ipynb_checkpoints
+./tests/.ipynb_checkpoints
+
+# # IPython
+# profile_default/
+# ipython_config.py
+
+# # pyenv
+# .python-version
