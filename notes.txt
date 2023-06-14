@@ -87,7 +87,7 @@ Submitted batch job 324130
   + sbatch convert_job.sh ferritin_conc_gly_50_6 6 4 (jobid 324236)
   - created github repo with the following commands:
       git init 
-      git add {files added here}
+      git add {files added here
       git commit -m "initial commit"
     then on github created a new repo
       git remote add origin https://github.com/maddalenabin/id10-ferritin-2022.git
@@ -101,4 +101,12 @@ TO DO IN THE NEXT DAYS
   - ttcs loading way too slow
   - filter before the convert2hdf5.py and then save the averaged filtered ttcs in a h5 file
   - add elog entries in h5 file
-  
+
+2023-05-22
+- implementing filtering of ttcs in test_convert2hdf5.py
+- implementing elog metadata in test_convert2hdf5_elog.py
+
+2023-06-13
+- successfully implemented elog metadata in test_convert2hdf5.py
+- now working on fixing the filtering of ttcs
+- i think i'm saving wrongly avaraged ttcs

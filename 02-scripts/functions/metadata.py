@@ -11,4 +11,7 @@ def get_scan_number(s):
     
 def get_rep(x, reps_per_spot=1):
     scan = get_scan_number(x)
-    return (scan % reps_per_spot) + 1
+    rep = scan % reps_per_spot
+    if rep == 0:
+        rep = 4
+    return rep

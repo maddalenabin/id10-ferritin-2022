@@ -31,7 +31,8 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
         if ana.meta.loc[index, 'nframes'] > 100:
             ana.analyze(index, 'xpcs', norm='symmetric', first=first, last=last, 
                         #twotime_par=[2,4,6], # twotime_par=list(np.arange(len(ana.setup.qroi))) 
-                        twotime_par=list(np.arange(1,len(ana.setup.qroi))),
+                        # twotime_par=list(np.arange(1,len(ana.setup.qroi))),
+                        twotime_par=[1, 2, 3, 4, 5, 6, 7, 8, 9, 11], # skip the roi where the detector is completely masked
 			            saxs=None, nread_procs=1, nprocs=30, chunk_size=250, verbose=True)
 
 if __name__ == '__main__':
