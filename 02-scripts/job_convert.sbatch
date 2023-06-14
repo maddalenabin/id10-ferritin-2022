@@ -3,7 +3,7 @@
 #SBATCH --output=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/convert-elog-%j.out
 #SBATCH --error=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/convert-elog-%j.err
 #SBATCH --time 24:00:00
-#SBATCH --job-name=elog-test
+#SBATCH --job-name=filter-test
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=maddalenabin@hotmail.com
 
@@ -15,5 +15,5 @@ echo datafolder $1
 echo dataset numb $2
 echo repetitions $3
 
-python test_convert2hdf5_elog.py --repsperspot $3 --proc $1 $2
+python test_convert2hdf5.py --repsperspot $3 --proc $1 $2
 # python --repsperspot $3 --proc $1 $2 test_convert2hdf5.py
