@@ -7,8 +7,8 @@
 /test/
 
 # files
-./test/functions/confidential.txt
-./02-scripts/functions/confidential.txt
+/test/functions/confidential.txt
+/02-scripts/functions/confidential.txt
 
 # miscellanea in tests
 # ./test/*.yml
@@ -22,7 +22,8 @@
 
 # # Jupyter Notebook
 # .ipynb_checkpoints
-./tests/.ipynb_checkpoints
+/tests/.ipynb_checkpoints/
+/01-notebooks/.ipynb_checkpoints/
 
 # # IPython
 # profile_default/
@@ -32,5 +33,5 @@
 # .python-version
 
 # boh
-02-scripts/functions/__pycache__/metadata.cpython-38.pyc
-02-scripts/functions/__pycache__/slurm.cpython-38.pyc
+# /02-scripts/functions/__pycache__/metadata.cpython-38.pyc
+# 02-scripts/functions/__pycache__/slurm.cpython-38.pyc
