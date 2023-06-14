@@ -33,5 +33,5 @@
 # .python-version
 
 # boh
-# /02-scripts/functions/__pycache__/metadata.cpython-38.pyc
-# 02-scripts/functions/__pycache__/slurm.cpython-38.pyc
+/02-scripts/functions/__pycache__/metadata.cpython-38.pyc
+/02-scripts/functions/__pycache__/slurm.cpython-38.pyc
