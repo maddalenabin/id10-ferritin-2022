@@ -27,3 +27,16 @@ def visit_func(name, node):
             print('\t', node.name, node.shape)
     else:
         print(node.name, 'is an unknown type')
+
+# def elog_entries():
+#     entries = ['elog/Absorbers 100um/', 'elog/Absorbers 80um/', 'elog/Exposure time (s)/', 'elog/LN flow meter/', 'elog/Mesh (spots x lines)/', 'elog/No of spots/', 'elog/Sample/', 'elog/Sample no. (label)/', 'elog/Short comment/', 'elog/Temperature, C/', 'elog/Temperature, K/', 'elog/Total exposure time (s)/', 'elog/comment/', 'elog/measurement folder/', 'elog/number of frames/', 'elog/position y, mm/', 'elog/position z, mm/', 'elog/reps per spot/', 'elog/scan number/', 'elog/transmission (%)/']    return entries
+#     return entries
+
+# def saxs_entries():
+#     entries = ['saxs/I/', 'saxs/I_reps/', 'saxs/q/', 'saxs/scans/']
+#     return entries
+
+# def xpcs_entries():
+#     g2s = ['xpcs/g2s/delay/', 'xpcs/g2s/g2s/', 'xpcs/g2s/q/']
+#     ttcs = ['xpcs/ttcs/q/', 'xpcs/ttcs/times/', 'xpcs/ttcs/ttc_avg_int/', 'xpcs/ttcs/ttc_rep_qs_avg/']
+#     return g2s + ttcs

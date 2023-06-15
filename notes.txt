@@ -110,3 +110,8 @@ TO DO IN THE NEXT DAYS
 - successfully implemented elog metadata in test_convert2hdf5.py
 - now working on fixing the filtering of ttcs
 - i think i'm saving wrongly avaraged ttcs
+
+2023-06-14
+- found error in the definition of the number of repetition. Fixed the function in 02-scripts/function/metadata.py
+- successfully implemented ttc and g2 averaging in test_convert2hdf5.py: get one ttc per repetition for each q, the same for the g2
+- run: sbatch job_convert.sbatch ferritin_conc_gly_50_6 5 4 (job 336950)
