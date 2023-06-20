@@ -10,7 +10,8 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
     warnings.filterwarnings("ignore")
     
     # watch out filelist.yml hard coded
-    with open('filelist.yml', 'r') as f:
+    # with open('05-filelists/filelist.yml', 'r') as f:
+    with open(f"../05-filelists/{outdir}.yml", 'r') as f:
         folders = yaml.load(f, Loader=yaml.FullLoader)[proc_id]
     
     ana = Xana(fmtstr='ebs_id10_eiger500k',
@@ -25,7 +26,9 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
     
     for folder in folders:
         ana.connect(folder)
-
+    # testing
+    print("\nXana connected to: ", folder)
+    
     for index in ana.meta.index.values:
         ana.analyze(index, 'saxs',  first=first, last=last)
         if ana.meta.loc[index, 'nframes'] > 100:

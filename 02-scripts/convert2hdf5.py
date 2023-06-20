@@ -63,7 +63,7 @@ def convert2hdf5(xana, filename):
     with h5py.File( path + filename, 'a') as f: # w for read/write/create access
         # write metadata
         for col in elog.columns:
-            f[f'/elog/{col}'] = elog_entries[col].values[0]
+            f[f'/elog/{col}'] = str(elog_entries[col].values[0])
         
         # write data
         f['/xpcs/g2s/delay'] = delay

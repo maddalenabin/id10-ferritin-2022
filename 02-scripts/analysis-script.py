@@ -21,7 +21,7 @@ parser.add_argument("datafolder", type=str, help='the name of the measurement fo
 parser.add_argument("datasetnumber", type=int, help="the dataset number")
 parser.add_argument('--nprocs', type=int, help="number of subprocesses", default=4)
 parser.add_argument('--proc', action="store_true",  help="activate processing")
-parser.add_argument('--filelist-name', default='filelist.yml', help="name of the file to store the filelist.")
+# parser.add_argument('--filelist-name', default='filelist.yml', help="name of the file to store the filelist.")
 
 # examples:
 # datafolder = 'ferritin_conc120_gly_50_2'
@@ -52,7 +52,8 @@ if __name__ == "__main__":
     filelist = make_filelist(datafolder, datasetnumber)
     scans = np.array(list(map(get_scan_number, filelist)))
 
-    dump_filelist(filelist, args.filelist_name, nprocs=args.nprocs)
+    # dump_filelist(filelist, args.filelist_name, nprocs=args.nprocs)
+    dump_filelist(filelist, f"../05-filelists/{datafolder}_{datasetnumber:04d}.yml", nprocs=args.nprocs)
 
     first = 10
     last = 10000

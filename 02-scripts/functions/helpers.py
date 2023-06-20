@@ -4,6 +4,8 @@ import smtplib
 import ssl
     
 def dump_filelist(filelist, filename='filelist.yml', nprocs=16):
+    """Create a file with the list of scans to be analysed per proc
+    """
     files_per_proc = int(np.ceil(len(filelist)/nprocs))
     iproc = 0
     to_file = {}
