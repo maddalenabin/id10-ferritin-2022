@@ -27,7 +27,7 @@ parser.add_argument('--proc', action="store_true",  help="activate processing")
 # datafolder = 'ferritin_conc120_gly_50_2'
 # datasetnumber = 2
 # run for example with 
-# python analysis-script.py ferritin_conc120_gly_50_2 2 --proc
+# python analysis-script.py ferritin_conc_gly_50_6 6 --proc
 
 def make_filelist(datafolder, datasetnumber):
     datafolder_ = f"/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/{datafolder}/{datafolder}_{datasetnumber:04d}"
@@ -52,8 +52,7 @@ if __name__ == "__main__":
     filelist = make_filelist(datafolder, datasetnumber)
     scans = np.array(list(map(get_scan_number, filelist)))
 
-    # dump_filelist(filelist, args.filelist_name, nprocs=args.nprocs)
-    dump_filelist(filelist, f"../05-filelists/{datafolder}_{datasetnumber:04d}.yml", nprocs=args.nprocs)
+    # dump_filelist(filelist, f"../05-filelists/{datafolder}_{datasetnumber:04d}.yml", nprocs=args.nprocs)
 
     first = 10
     last = 10000
