@@ -3,6 +3,7 @@
 
 # directories
 /git-scripts/
+/03-source/
 /04-jobs/
 /05-filelists/
 /test/
@@ -11,8 +12,7 @@
 /test/functions/confidential.txt
 /02-scripts/functions/confidential.txt
 /02-scripts/convert2hdf5_old.py
-/03-source/contrast_vs_q2.npy
-/03-source/contrast_vs_q.npy
+/02-scripts/filelist.yml
 
 # miscellanea in tests
 # /test/*.yml
@@ -37,6 +37,7 @@
 # .python-version
 
 # boh
-/02-scripts/functions/__pycache__/metadata.cpython-38.pyc
+/01-notebooks/functions/__pycache__/h5_tools.cpython-38.pyc
 /01-notebooks/functions/__pycache__/h5_tools.cpython-38.pyc
 /02-scripts/functions/__pycache__/slurm.cpython-38.pyc
+/02-scripts/functions/__pycache__/metadata.cpython-38.pyc
