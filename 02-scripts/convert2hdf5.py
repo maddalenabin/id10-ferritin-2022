@@ -86,6 +86,7 @@ def convert2hdf5(xana, filename):
 
         print("Writing xpcs data")
         for j,rep in enumerate(reps):
+            ttcs_avg_int = []
             # temporarily here, in the rep loop it will be overwritten
             ind_xpcs = xana.db[(xana.db['analysis'] == 'xpcs') & (xana.db['rep'] == rep)].index.values
             
@@ -95,7 +96,7 @@ def convert2hdf5(xana, filename):
 
             for i,ind in tqdm(enumerate(ind_xpcs), total=len(ind_xpcs)):
                 ttcs_qs[i] = np.stack(list(xana.get_item(ind)['twotime_corf'].values()), axis=0)
-                g2s_qs[i] = xana.get_item(ind)['corf'][1:,1:].T
+                g2s_qs[i] = xana.get_item(ind)['corf'][1:,1:].T # (nspots, nqs, delays)
             g2s[j] = np.average(g2s_qs, axis=0)
 
             ttcs_avg_int[j,:] = ttcs_qs.mean(axis=(2,3))

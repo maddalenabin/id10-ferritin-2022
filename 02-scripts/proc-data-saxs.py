@@ -8,7 +8,7 @@ import warnings
 def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *args):
     warnings.filterwarnings("ignore")
     
-    with open('filelist.yml', 'r') as f:
+    with open(f"../05-filelists/{outdir}.yml", 'r') as f:
         folders = yaml.load(f, Loader=yaml.FullLoader)[proc_id]
     
     ana = Xana(fmtstr='ebs_id10_eiger500k',
@@ -16,7 +16,8 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
                 maskfile=maskfile,
                 setupfile=setupfile)
 
-    outdir = f'./results/{outdir}/p{slurm_id:02d}'
+    # outdir = f'./results/{outdir}/p{slurm_id:02d}'
+    outdir = f'/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/results/{outdir}/p{slurm_id:02d}'
     if not os.path.isdir(outdir):
         os.makedirs(outdir, exist_ok=True)
     ana.mksavdir(outdir)

@@ -9,44 +9,6 @@ Notes about the analysis
 2023-03-28
 - save analysis h5 files in /cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/h5-files/
 
-2023-03-29
-SBATCH JOB FROM FYSIKUM
-#!/bin/bash -l
-
-#SBATCH -p cops           # Partition
-#SBATCH -J findprimes     # Job name
-#SBATCH -N 1              # Number of nodes
-#SBATCH -t 0-00:01:00     # Wall time (days-H:M:S), here = 1 hour
-#SBATCH -o slurm-%j.out   # Job output file
-
-module load Mathematica/12.1
-
-# Optionally limit the number of launched kernels
-# export MAX_CORES_LIMIT=8
-
-math -script findprimes.m
-
-
-SBATCH FROM MID 
-#!/bin/bash
-#SBATCH --job-name=midtools
-#SBATCH --output=/gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/job-sub/jobs/2022-08-19T16-55-50-770-run137.job.out
-#SBATCH --error=/gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/job-sub/jobs/2022-08-19T16-55-50-770-run137.job.err
-#SBATCH --partition=upex
-#SBATCH --exclusive
-#SBATCH --time 06:00:00
-
-source /gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/.venv/bin/activate
-echo "SLURM_JOB_ID           $SLURM_JOB_ID"
-type midtools
-
-ulimit -n 4096
-ulimit -c unlimited
-midtools /gpfs/exfel/u/scratch/MID/202202/p003094/maddalena/job-sub/tmp/tmp_setup-config_2022-08-19_T16-55-50.yml 1110 -r 137 --out-dir ./analyzed_runs/p003094 --pulses-per-train 100 --pulse-step 1 --datdir /gpfs/exfel/exp/MID/202202/p003094/proc/ --last-train 200 --first-cell 2
-
-exit
-
-
 2023-03-31
 - before running python scripts: 
       source .venv/bin/activate
@@ -87,7 +49,7 @@ Submitted batch job 324130
   + sbatch convert_job.sh ferritin_conc_gly_50_6 6 4 (jobid 324236)
   - created github repo with the following commands:
       git init 
-      git add {files added here
+      git add files added here
       git commit -m "initial commit"
     then on github created a new repo
       git remote add origin https://github.com/maddalenabin/id10-ferritin-2022.git
@@ -115,3 +77,33 @@ TO DO IN THE NEXT DAYS
 - found error in the definition of the number of repetition. Fixed the function in 02-scripts/function/metadata.py
 - successfully implemented ttc and g2 averaging in test_convert2hdf5.py: get one ttc per repetition for each q, the same for the g2
 - run: sbatch job_convert.sbatch ferritin_conc_gly_50_6 5 4 (job 336950)
+
+2023-06-15
+- checked if the analysis from job 336950 makes sense. It does.
+- running fluences ferritin_conc_gly_50_5 4-6 jobs(337132, 337136, 337137)
+- for later (done):
+    - running entries 134-138 of the elog (ferritin_conc_gly_50_6 datasetnumber 2-6, T=250-210)
+
+2023-06-19
+- plotting g2s at 220K different fluxes (ferritin_conc_gly_50_5_0004-6) and the last two perfectly overlap, so I think I'm overwriting something in the analysis scripts
+- check if the problem in the yml file. I think so. Analysis resubmitted for the different fluences
+
+2023-06-20
+- check job 338233_ failed (ferritin_conc_gly_50_6_0003). I think there is a problem in one of the scans, perhaps the h5 file is deprecated.
+- 2023-06-20T14-26-49-732.job-338343_0.err check it. Same run. 
+- coverting temps analysis: 
+- ferritin_conc_gly_50_6_0003: scan 53 deprecated 
+
+2023-06-28
+- Background subtraction of the scattering intensity => ISSUES
+    - the Iq of ferritin has a weird shape around the protein peak q≈0.23 nm-1
+    - the 2d image shows a lot of scattering in module 2 (cone shape), and a sort of jump in intensity between module 2 and 3.
+    - the background 2d image doesn't show anything similar, looks smooth, although there is a lot of scattering a low q.
+    - if the weird scattering is static, the g2s should be fine
+    - if the weird scattering is there in all the measurements, it should be present also in the bkg, but it's not. And the strong scattering of ferritin should hide it instead of highlighting it.
+    - now running apoferritin to see if the strange scattering is also there
+
+2023-06-30
+- worked on the q-dependence of the contrast. Tried with both Anita's and Fivos' scripts, which give very different results, especially at large q.
+  May be because Anita's estimations are for XFELs (check Felix' paper).
+- to match the actual contrast that we have, I need to change the beam size to 24um instead of 30um

@@ -52,13 +52,13 @@ if __name__ == "__main__":
     filelist = make_filelist(datafolder, datasetnumber)
     scans = np.array(list(map(get_scan_number, filelist)))
 
-    # dump_filelist(filelist, f"../05-filelists/{datafolder}_{datasetnumber:04d}.yml", nprocs=args.nprocs)
+    dump_filelist(filelist, f"../05-filelists/{datafolder}_{datasetnumber:04d}.yml", nprocs=args.nprocs)
 
     first = 10
     last = 10000
-    func_file = 'proc-data-xpcs.py'
+    func_file = 'proc-data.py'
     test = not args.proc
-    args_list = ['/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/cryo-mask-230417_03.npy',
+    args_list = ['/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/cryo-mask-230628_01.npy',
             '/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/setup-fullmask-cryo-230417.pkl',
             first,
             last,
