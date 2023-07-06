@@ -107,3 +107,18 @@ TO DO IN THE NEXT DAYS
 - worked on the q-dependence of the contrast. Tried with both Anita's and Fivos' scripts, which give very different results, especially at large q.
   May be because Anita's estimations are for XFELs (check Felix' paper).
 - to match the actual contrast that we have, I need to change the beam size to 24um instead of 30um
+
+2023-07-03
+- running analysis for ferritin_conc100_gly_50_1 datafolders 2, 6, 9, 10, 12, 13 (T=250, 240, 240, 230, 260, 270 K with 100% transm)
+- run ferritin_conc100_gly_50_1_0010, scan0057 (the last one) is deprecated
+
+2023-07-04
+- running ferritin_conc_gly_50_5_0003 T=240 45%
+- running ferritin_conc120_gly_50_2 2-5 T=240 K fluxes 100,45,22.5,11.5%
+
+2023-07-05
+- c2 fluxes 270K 100,45% (ferritin_conc100_gly_50_1 13-14) way too fast to see anything
+
+2023-07-06
+- c3 fluxes 240K 100,45,22.5,11% (ferritin_conc120_gly_50_2 2-5) shows slow down upon increasing the flux.
+- Lowest transmission  ferritin_conc120_gly_50_2_0005 11.5% has a super weird Iq, discard this run
