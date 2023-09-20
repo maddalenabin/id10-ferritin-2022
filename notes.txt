@@ -120,5 +120,23 @@ TO DO IN THE NEXT DAYS
 - c2 fluxes 270K 100,45% (ferritin_conc100_gly_50_1 13-14) way too fast to see anything
 
 2023-07-06
-- c3 fluxes 240K 100,45,22.5,11% (ferritin_conc120_gly_50_2 2-5) shows slow down upon increasing the flux.
+- c3 fluxes 240K 100,45,22.5,11% (ferritin_conc120_gly_50_2 2-5) shows slow down upon increasing the flux. Same behavior as for c1
 - Lowest transmission  ferritin_conc120_gly_50_2_0005 11.5% has a super weird Iq, discard this run
+
+
+2023-07-10
+- wrote a script to analyse single frames for calculating saxs curve. Running it for ferritin_conc120_gly_50_2_0002
+- checked ttcs for beginning and end (frame_in = 10, 3500). No slow down, no sign of aggregation, they overlap
+
+2023-07-11
+- flux dependence of the g2s is wrong! I was using the wrong delay time because each run has a different exposure time!
+
+2023-09-12
+- chi4 analysis done before the summer break didn't give any signal
+
+2023-09-20
+- normalized diffusion coefficient to assess the lineshapes
+    - different concentrations seem to have roughly the same, but we have only highest temperatures
+    - big uncertainty on viscosity at low temps and on concentrations
+    - deviation from SE more pronounced at low temps
+- chi4 analysis: too noisy, impossible to see any signal
