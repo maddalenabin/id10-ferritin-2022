@@ -115,10 +115,13 @@ def convert2hdf5(xana, filename):
             print("\t\t\t good runs: ", np.sum(good_indices[j]))
             ttcs_filtered[j] = np.average(ttcs_qs[good_indices[j],:,:,:], axis=0)
             g2s_filtered[j] = np.average(g2s_qs[good_indices[j],:,:], axis=0)
-            dg2s[j] = np.std(g2s_qs[good_indices[j],:,:], axis=0)
+            dg2s[j] = np.std(g2s_qs[good_indices[j],:,:], axis=0) / np.sqrt(np.sum(good_indices[j])-1)
+            
+            f.create_dataset(f'/xpcs/good_indices_{j}', data=good_indices[j]) # good indices used for filtering
+            print("\t\t\t good indices saved: ", np.shape(good_indices[j]))
 
-        f.create_dataset('/xpcs/good_indices', data=np.asaray(good_indices)) # good indices used for filtering
-        print("\nSaved good indices with shape ", np.shape(good_indices))
+        # f.create_dataset('/xpcs/good_indices', data=np.asarray(good_indices)) # good indices used for filtering
+        # print("\nSaved good indices with shape ", np.shape(good_indices))
 
         # -- saxs
         print("\nWriting saxs data")

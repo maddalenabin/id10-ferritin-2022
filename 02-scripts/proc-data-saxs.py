@@ -1,4 +1,5 @@
 from Xana import Xana
+import time
 import sys
 import os
 import yaml
@@ -16,7 +17,6 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
                 maskfile=maskfile,
                 setupfile=setupfile)
 
-    # outdir = f'./results/{outdir}/p{slurm_id:02d}'
     outdir = f'/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/results/{outdir}/p{slurm_id:02d}'
     if not os.path.isdir(outdir):
         os.makedirs(outdir, exist_ok=True)
@@ -24,11 +24,14 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
     
     for folder in folders:
         ana.connect(folder)
-
+    
+    step = 100
     for index in ana.meta.index.values:
-        ana.analyze(index, 'saxs',  first=first, last=last, verbose=True
-        )
+        for first_sub in range(first, last, step):
+            ana.analyze(index, 'saxs',  first=first_sub, last=first_sub+step, verbose=True)
+        
 
+    
 if __name__ == '__main__':
     proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *args = sys.argv[1:]
     run_analysis(int(proc_id), int(slurm_id), maskfile, setupfile, int(first), int(last), outdir)

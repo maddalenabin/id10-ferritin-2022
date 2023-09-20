@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p cops
-#SBATCH --output=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/convert-elog-%j.out
-#SBATCH --error=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/convert-elog-%j.err
+#SBATCH --output=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/convert-%j.out
+#SBATCH --error=/cfs/home/mabi3848/id10-ferritin-2022/04-jobs/convert-%j.err
 #SBATCH --time 24:00:00
 #SBATCH --job-name=convert-id10
 #SBATCH --mail-type=ALL
