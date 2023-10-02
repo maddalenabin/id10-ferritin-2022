@@ -37,8 +37,10 @@
 # .python-version
 
 # boh
-/01-notebooks/functions/__pycache__/h5_tools.cpython-38.pyc
-/01-notebooks/functions/__pycache__/fitting_tools.cpython-38.pyc
-/02-scripts/functions/__pycache__/helpers.cpython-38.pyc
-/02-scripts/functions/__pycache__/metadata.cpython-38.pyc
-/02-scripts/functions/__pycache__/slurm.cpython-38.pyc
+/01-notebooks/functions/__pycache__/
+*.pyc
+# /01-notebooks/functions/__pycache__/h5_tools.cpython-38.pyc
+# /01-notebooks/functions/__pycache__/fitting_tools.cpython-38.pyc
+# /02-scripts/functions/__pycache__/helpers.cpython-38.pyc
+# /02-scripts/functions/__pycache__/metadata.cpython-38.pyc
+# /02-scripts/functions/__pycache__/slurm.cpython-38.pyc
