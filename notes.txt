@@ -140,3 +140,12 @@ TO DO IN THE NEXT DAYS
     - big uncertainty on viscosity at low temps and on concentrations
     - deviation from SE more pronounced at low temps
 - chi4 analysis: too noisy, impossible to see any signal
+
+2023-09-28
+- worked on DLS data to get diffusion coefficients and viscosity
+
+2023-10-02
+- got a rough, but more precise than before, concentration of c0-3 from UV-Vis. 
+- from those, calculated actual glycerol/water fraction and imported viscosity values from the webpage http://www.met.reading.ac.uk/~sws04cdw/viscosity_calc.html
+  The values of viscosity are not reliable below 270 K. Need to find good references.
+- plotted the diffusion coefficients using those viscosity values and Rh=5.8 nm
