@@ -26,7 +26,7 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
         ana.connect(folder)
     
     for index in ana.meta.index.values:
-        ana.analyze(index, 'saxs',  first=first, last=last)
+        ana.analyze(index, 'saxs',  first=first, last=last, verbose=True)
         if ana.meta.loc[index, 'nframes'] > 100:
             ana.analyze(index, 'xpcs', norm='symmetric', first=first, last=last, 
                         # twotime_par=list(np.arange(1,len(ana.setup.qroi))),

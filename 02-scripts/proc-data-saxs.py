@@ -25,7 +25,7 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
     for folder in folders:
         ana.connect(folder)
     
-    step = 100
+    step = 3
     for index in ana.meta.index.values:
         for first_sub in range(first, last, step):
             ana.analyze(index, 'saxs',  first=first_sub, last=first_sub+step, verbose=True)

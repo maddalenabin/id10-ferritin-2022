@@ -54,12 +54,14 @@ if __name__ == "__main__":
 
     dump_filelist(filelist, f"../05-filelists/{datafolder}_{datasetnumber:04d}.yml", nprocs=args.nprocs)
 
-    first = 10
-    last = 10000
-    func_file = 'proc-data.py'
+    first = 4800
+    last = 5000
+    func_file = 'proc-data-saxs.py'
     test = not args.proc
     args_list = ['/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/cryo-mask-230628_01.npy',
             '/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/setup-fullmask-cryo-230417.pkl',
+            # '/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/mask-anita.npy',
+            # '/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/mask-setup/setup_anita.pkl',
             first,
             last,
             f'{datafolder}_{datasetnumber:04d}',

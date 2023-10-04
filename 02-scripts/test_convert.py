@@ -146,6 +146,7 @@ def convert2hdf5(xana, filename):
                 
             # I_rep[j] = np.average(Is, axis=0)
             I_rep_filtered[j] = np.average(Is[good_indices[j],:], axis=0)
+            dI_rep_filtered[j] = np.std(Is[good_indices[j],:], axis=0) / sum(good_indices[j])
 
         print("\n\nEnd of the scripts\n")
 
