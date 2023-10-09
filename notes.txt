@@ -154,11 +154,12 @@ TO DO IN THE NEXT DAYS
 2023-10-04
 - saxs frames analysis jobid 355256 (2023-10-04T10-45-14-168.job)
 - checked wether first or last 200 frames are maybe affected by the shutter, but this doesn't seem to be the case. Though, the Iq looks smoother if I average only 200 frames. Don't know why yet
-- 
-
-
-
 - analysi with anita's setupwhatch out no xpcs, check job id to select the correct processed database. jobs crashed, check why
+
+2023-10-09
+- found an interesting trend of the first parly visible peak in the chi4 for different concentrations
+- rebinned I(q) with the same qs as the D(q). The goal is to get the H(q) = S(Q)/D(q)
+
 
 #########################################################################
 #########################################################################
