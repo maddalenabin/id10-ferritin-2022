@@ -26,4 +26,11 @@ def linear(x, m):
     
     return m*x
 
+
+def gaussian(x, a, mean, sigma, tau):
+    """ Gaussian """
+
+    return a * np.exp( ((x-mean)/sigma)**2 )
+
+
 # add Arrhenius
