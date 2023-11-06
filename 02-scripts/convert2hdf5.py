@@ -12,7 +12,7 @@ from functions.metadata import get_rep, get_scan_number
 # run as for example
 # python convert2hdf5.py --repsperspot 4 --proc ferritin_conc_gly_50_6 5
 # or using sbatch job submission as
-# sbatch job_convert.sbatch ferritin_conc_gly_50_6 5 4
+# sbatch job_convert.sbatch ferritin_conc_gly_50_5 4 4
 
 parser = argparse.ArgumentParser()
 parser.add_argument("datafolder", type=str, help='the name of the measurement folder without scan number')
@@ -75,18 +75,22 @@ def convert2hdf5(xana, filename):
         f['/saxs/q'] = qI
         f['/saxs/scans'] = saxs_scans
         
+        good_indices = []
 
         # -- divide per repetition
-        reps = np.arange(1,args.repsperspot+1)
-        ttcs = f.create_dataset('/xpcs/ttcs/ttc_rep_qs_avg', shape=(args.repsperspot, nttc, ntimes, ntimes), dtype=np.float32, compression="gzip")
-        g2s = f.create_dataset('/xpcs/g2s/g2s', shape=(args.repsperspot, nq, ndelay), dtype=np.float32, compression="gzip") # all g2s
-        ttcs_avg_int = f.create_dataset('/xpcs/ttcs/ttc_avg_int', shape=(args.repsperspot,int(nxpcs/args.repsperspot),nttc), dtype=np.float32, compression="gzip") 
+        reps = np.arange(1, args.repsperspot+1)
+        ttcs_filtered = f.create_dataset('/xpcs/ttcs/ttc_rep_qs_avg_filtered', shape=(args.repsperspot, nttc, ntimes, ntimes), dtype=np.float32, compression="gzip")
+        g2s_filtered = f.create_dataset('/xpcs/g2s/g2s_filtered', shape=(args.repsperspot, nq, ndelay), dtype=np.float32, compression="gzip") # filtered g2s
+        dg2s = f.create_dataset('/xpcs/g2s/g2s_err', shape=(args.repsperspot, nq, ndelay), dtype=np.float32, compression="gzip") # filtered g2s
+        # not filtered datasets, which are not used anymore
+        # ttcs = f.create_dataset('/xpcs/ttcs/ttc_rep_qs_avg', shape=(args.repsperspot, nttc, ntimes, ntimes), dtype=np.float32, compression="gzip")
+        # g2s = f.create_dataset('/xpcs/g2s/g2s', shape=(args.repsperspot, nq, ndelay), dtype=np.float32, compression="gzip") # all g2s
 
         print("Number of repetitions: ", args.repsperspot, '\n')
 
         print("Writing xpcs data")
+
         for j,rep in enumerate(reps):
-            ttcs_avg_int = []
             # temporarily here, in the rep loop it will be overwritten
             ind_xpcs = xana.db[(xana.db['analysis'] == 'xpcs') & (xana.db['rep'] == rep)].index.values
             
@@ -94,19 +98,37 @@ def convert2hdf5(xana, filename):
             ttcs_qs = np.empty(shape=(len(ind_xpcs), nttc, ntimes, ntimes))
             g2s_qs = np.empty(shape=(len(ind_xpcs), nq, ndelay))
 
+            baseline = np.empty(shape=len(ind_xpcs)) # test
+
             for i,ind in tqdm(enumerate(ind_xpcs), total=len(ind_xpcs)):
-                ttcs_qs[i] = np.stack(list(xana.get_item(ind)['twotime_corf'].values()), axis=0)
+                ttcs_qs[i] = np.stack(list(xana.get_item(ind)['twotime_corf'].values()), axis=0) # (nspots, nqs, t1, t2)
                 g2s_qs[i] = xana.get_item(ind)['corf'][1:,1:].T # (nspots, nqs, delays)
-            g2s[j] = np.average(g2s_qs, axis=0)
+                baseline[i] = np.average(ttcs_qs[i][1][:300,-300:]) # test
 
-            ttcs_avg_int[j,:] = ttcs_qs.mean(axis=(2,3))
-            ttcs[j] = np.average(ttcs_qs, axis=0)
+            # not filtered datasets, not saved anymore
+            # g2s[j] = np.average(g2s_qs, axis=0)
+            # ttcs[j] = np.average(ttcs_qs, axis=0)
 
+            threshold = 1.03
+            cond = (baseline < threshold)
+            good_indices.append(cond) # good_runs
+            print("\t\t\t good runs: ", np.sum(good_indices[j]))
+            ttcs_filtered[j] = np.average(ttcs_qs[good_indices[j],:,:,:], axis=0)
+            g2s_filtered[j] = np.average(g2s_qs[good_indices[j],:,:], axis=0)
+            dg2s[j] = np.std(g2s_qs[good_indices[j],:,:], axis=0) / np.sqrt(np.sum(good_indices[j])-1)
+            
+            f.create_dataset(f'/xpcs/good_indices_{j}', data=good_indices[j]) # good indices used for filtering
+            print("\t\t\t good indices saved: ", np.shape(good_indices[j]))
+
+        # f.create_dataset('/xpcs/good_indices', data=np.asarray(good_indices)) # good indices used for filtering
+        # print("\nSaved good indices with shape ", np.shape(good_indices))
 
         # -- saxs
         print("\nWriting saxs data")
         I = f.create_dataset('/saxs/I', shape=(nsaxs, nqI), dtype=np.float32, compression="gzip") # all Iqs
-        I_rep = f.create_dataset('/saxs/I_reps', shape=(args.repsperspot, nqI), dtype=np.float32, compression="gzip") # all Iqs
+        # I_rep = f.create_dataset('/saxs/I_reps', shape=(args.repsperspot, nqI), dtype=np.float32, compression="gzip") # Iqs per repetition 
+        I_rep_filtered = f.create_dataset('/saxs/I_reps_filtered', shape=(args.repsperspot, nqI), dtype=np.float32, compression="gzip") # filtered Iqs
+        
         # save Iq per spot
         print("\tall spots")
         for i, saxs_index in tqdm(enumerate(saxs_indices), desc='writing SAXS results',  total=len(saxs_indices)):
@@ -115,7 +137,6 @@ def convert2hdf5(xana, filename):
         
         # save avg Iq per repetition
         for j,rep in enumerate(reps):
-            # temporarily here, in the rep loop it will be overwritten
             print("\trepetition: ", rep, '\t number of spots: ', len(ind_xpcs))
             ind_saxs = xana.db[(xana.db['analysis'] == 'saxs') & (xana.db['rep'] == rep)].index.values
             Is = np.empty(shape=(len(ind_saxs), nqI))
@@ -123,7 +144,9 @@ def convert2hdf5(xana, filename):
             for i,ind in tqdm(enumerate(ind_saxs), total=len(ind_saxs)):
                 Is[i] = xana.get_item(ind)['soq'][:,1]
                 
-            I_rep[j] = np.average(Is, axis=0)
+            # I_rep[j] = np.average(Is, axis=0)
+            I_rep_filtered[j] = np.average(Is[good_indices[j],:], axis=0)
+            dI_rep_filtered[j] = np.std(Is[good_indices[j],:], axis=0) / sum(good_indices[j])
 
         print("\n\nEnd of the scripts\n")
 
