@@ -25,6 +25,8 @@
 
 # boh
 **/*.pyc
+**/**/*.pyc
+**/**/**/*.pyc
 
 ###########################
 # Standard Python gitignore
