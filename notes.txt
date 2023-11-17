@@ -160,11 +160,19 @@ TO DO IN THE NEXT DAYS
 - found an interesting trend of the first parly visible peak in the chi4 for different concentrations
 - rebinned I(q) with the same qs as the D(q). The goal is to get the H(q) = S(Q)/D(q)
 
+2023-10-10
+- calculated the chi4 for all the temperatures and all the concentrations. Trend visible in c1, not so clear in c2 and c3
+- c3 is very noisy
 
-#########################################################################
-#########################################################################
+2023-10-11/12
+- calculating the chi4 for c1 at different qs to see if there is a q dependence or any kind of trend
 
-ADMINISTRATIVE PROGRAMMING:
-- merge test_convert.py and convert2hdf5.py
-- keep either convert2hdf5.py or convert2hdf5_old.py
-- 
+2023-10-16
+- calculating the chi4 at different qs for c2 and c3. C2 seems to have some kind of trend at 240K, but have to look into it more carefully
+
+2023-10-24
+- Arrhenius "fit" gives activation energies between 3.6 (diluted) and 5-7 kJ/mol
+
+2023-11-06
+- Administrative programming: cleaned up scripts for job submission and data processing
+ 
