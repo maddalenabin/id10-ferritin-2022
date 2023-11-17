@@ -13,24 +13,21 @@ def fit(function,x,y,p0=None,sigma=None,bounds=[None,None]):
 
 def exponential(x, beta, tau):
     """ Single exponential (brownian motion) """
-
     return np.abs(beta) * np.exp( -2*x/(np.abs(tau)) )
 
 def exponential_kww(x, beta, tau, kww):
     """ Stretched/compressed exponential """
-    
     return np.abs(beta) * np.exp( -2*(x/(np.abs(tau)))**kww )
 
 def linear(x, m):
     """ Linear function """
-    
     return m*x
 
 
 def gaussian(x, a, mean, sigma, tau):
     """ Gaussian """
-
     return a * np.exp( ((x-mean)/sigma)**2 )
 
-
-# add Arrhenius
+def arrhenius(x,t1,Ea):
+    """  Arrhenius function """
+    return t1 * np.exp( Ea/(x*Kb) )
