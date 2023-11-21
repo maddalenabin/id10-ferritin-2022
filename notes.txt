@@ -175,4 +175,9 @@ TO DO IN THE NEXT DAYS
 
 2023-11-06
 - Administrative programming: cleaned up scripts for job submission and data processing
+
+2023-11-17
+- plots for paper and arrhenius fits of diffusion coefficient vs temperatures
  
+2023-11-21
+- plots for paper: chi4 and ttc

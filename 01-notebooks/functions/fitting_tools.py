@@ -30,4 +30,6 @@ def gaussian(x, a, mean, sigma, tau):
 
 def arrhenius(x,t1,Ea):
     """  Arrhenius function """
+    Kb = 1#1.380649e-23 #m2 kg s-2 K-1 = J/K
+    # Ea = popt2[1] * Kb / 1e3 * Na # if you use Kb = 1, then here use the real Kb, where Na = 6.02214076e23
     return t1 * np.exp( Ea/(x*Kb) )

@@ -60,3 +60,12 @@ def update_D_coeff(T, Tr, D, dD, c, run):
         DiffC2.to_pickle("/cfs/home/mabi3848/id10-ferritin-2022/03-source/diffusion_coefficient")
 
     return
+
+
+def load_npz_data(filename):
+    """Loads data from npz file and return a dictionary
+    """
+    file = np.load(filename)
+    data = {key: file[key] for key in file.files}
+
+    return data
