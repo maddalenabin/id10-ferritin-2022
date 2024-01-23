@@ -181,3 +181,10 @@ TO DO IN THE NEXT DAYS
  
 2023-11-21
 - plots for paper: chi4 and ttc
+
+2023-12-04
+- working on normalization of chi4
+
+2024-01-19
+- worked on the modelling of chi4. Generate a signal with gaussian distribution which follows exponential decay model. Then calculated the g2, ttc, chi4 from 100 trajectories.
+- no results
