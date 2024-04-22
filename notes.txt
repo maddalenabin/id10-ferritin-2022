@@ -188,3 +188,14 @@ TO DO IN THE NEXT DAYS
 2024-01-19
 - worked on the modelling of chi4. Generate a signal with gaussian distribution which follows exponential decay model. Then calculated the g2, ttc, chi4 from 100 trajectories.
 - no results
+
+2024-03-09
+- added diffusion coefficients of dls data
+
+2024-03-27
+- working on DLS diffusion coefficients to add them to fig.3?
+
+2024-04-22
+- fitting MSD to get Diffusion coefficient
+- Diffusion coefficient at q=0.11 1/nm for different temperatures overlap with that obtained from the fits of g2
+- don't know what I should get from this
