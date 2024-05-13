@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 
-def D_coeff(T, eta, Rh=6.6e-9):
+def D_coeff(T, eta, Rh=7.3e-9):
     """Calculate the diffusion coefficient in nm^2/us from Stokes-Einsten equation
     Args
         T: temperature in K

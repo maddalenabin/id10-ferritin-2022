@@ -199,3 +199,10 @@ TO DO IN THE NEXT DAYS
 - fitting MSD to get Diffusion coefficient
 - Diffusion coefficient at q=0.11 1/nm for different temperatures overlap with that obtained from the fits of g2
 - don't know what I should get from this
+
+2024-04-25
+- was working on diffusion coefficients from DLS measurements.
+
+2024-05-13
+- estimated concentration of c1, c2, c3 from calibration curves by Anita. Results give 103. 136 and 314 mg/ml respecively
+- the Iq was first rebinned. Then a baseline was subtracted, normalized by peak amplitude. Then gaussian fit of the peak to extract the peak position, which then provides the protein concentration.
