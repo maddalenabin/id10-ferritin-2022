@@ -206,3 +206,9 @@ TO DO IN THE NEXT DAYS
 2024-05-13
 - estimated concentration of c1, c2, c3 from calibration curves by Anita. Results give 103. 136 and 314 mg/ml respecively
 - the Iq was first rebinned. Then a baseline was subtracted, normalized by peak amplitude. Then gaussian fit of the peak to extract the peak position, which then provides the protein concentration.
+Summary of what found today:
+
+c (mg/ml) 	 v% 	 w% 	 mol% 	 label
+102 		 48.9 	 54.8 	 19.2     c1
+135 		 50.6 	 56.4 	 20.2     c2
+314 		 60.5 	 65.9 	 27.5     c3
