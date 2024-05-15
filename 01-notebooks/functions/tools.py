@@ -46,6 +46,70 @@ def viscosity():
     return etas
 
 
+def viscosity_glywater(T,weight_percent=0,volume_percent=0,waterVol=0,glycerolVol=0):
+
+    #Variables ----------------
+    #T				#temperature (degrees Celcius)
+    #waterVol 		#volume of water required (ml)
+    #glycerolVol 	#volume of Glycerol used (ml)
+
+    #Densities ----------------
+    glycerolDen = (1273.3-0.6121*T)/1000 			#Density of Glycerol (g/cm3)
+    waterDen = (1-(((abs(T-4))/622)**1.7)) 	#Density of water (g/cm3)
+
+    if (waterVol==0)|(glycerolVol==0):
+
+        if weight_percent!=0:
+            glycerolVol=weight_percent/glycerolDen
+            waterVol=1-glycerolVol
+
+        if volume_percent!=0:
+            glycerolVol=volume_percent
+            waterVol=1-glycerolVol
+
+    #Fraction cacluator ----------------
+
+    glycerolMass=glycerolDen*glycerolVol
+    waterMass=waterDen*waterVol
+    totalMass=glycerolMass+waterMass
+    mass_fraction=glycerolMass/totalMass
+    vol_fraction= glycerolVol/(glycerolVol+waterVol)
+
+    #print ("Mass fraction of mixture =", round(mass_fraction,5))
+    #print ("Volume fraction of mixture =", round(vol_fraction,5))
+
+
+    #Density calculator ----------------
+
+    ##Andreas Volk polynomial method
+    contraction_av = 1-(3.520E-8*((mass_fraction*100)))**3+(1.027E-6*((mass_fraction*100)))**2+2.5E-4*(mass_fraction*100)-1.691E-4
+    contraction = 1+contraction_av/100
+
+    ## Distorted sine approximation method
+    #contraction_pc = 1.1*math.pow(math.sin(numpy.radians(math.pow(mass_fraction,1.3)*180)),0.85)
+    #contraction = 1 + contraction_pc/100
+
+    density_mix=(glycerolDen*vol_fraction+waterDen*(1-vol_fraction))*contraction
+
+    #print ("Density of mixture =",round(density_mix,5),"g/cm3")
+
+
+    #Viscosity calcualtor ----------------
+
+    glycerolVisc=0.001*12100*np.exp((-1233+T)*T/(9900+70*T))
+    waterVisc=0.001*1.790*np.exp((-1230-T)*T/(36100+360*T))
+
+    a=0.705-0.0017*T
+    b=(4.9+0.036*T)*np.power(a,2.5)
+    alpha=1-mass_fraction+(a*b*mass_fraction*(1-mass_fraction))/(a*mass_fraction+b*(1-mass_fraction))
+    A=np.log(waterVisc/glycerolVisc)
+
+    viscosity_mix=glycerolVisc*np.exp(A*alpha)
+
+    #print ("Viscosity of mixture =",round(viscosity_mix,5), "Ns/m2")
+    return viscosity_mix
+        ############################################################################
+
 def update_D_coeff(T, Tr, D, dD, c, run):
     """Updates the diffusion coefficient calculated from the data
     """
@@ -69,3 +133,16 @@ def load_npz_data(filename):
     data = {key: file[key] for key in file.files}
 
     return data
+
+
+def conc_v_w_mol():
+    """ Values of protein concentration, and gly fraction in v%, w% and mol%"""
+    print("""
+    c (mg/ml) 	 v% 	 w% 	 mol% 	 
+    102         48.9 	 54.8 	 19.2
+    135 	50.6 	 56.4 	 20.2
+    314 	60.5 	 65.9 	 27.5
+    SU13        55.0     60.7    23.2
+    DLS         44.2     50.0    16.4
+    """)
+    return 
