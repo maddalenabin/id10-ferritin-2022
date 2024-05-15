@@ -212,3 +212,15 @@ c (mg/ml) 	 v% 	 w% 	 mol% 	 label
 102 		 48.9 	 54.8 	 19.2     c1
 135 		 50.6 	 56.4 	 20.2     c2
 314 		 60.5 	 65.9 	 27.5     c3
+
+2024-05-14
+- polished figures
+- measured diluted ferritin in 55v% gly/water to compare it to SU13. Tomorrow measurements are going to be ready
+
+2024-05-14
+- fixed the n0 in the DLS fits. Now slightly new diffusion coefficient values for SU13 (the n0 changed the q)
+
+NEXT
+- measure NP in 23 mol% wuth DLS to get viscosity at higher temps
+- measure dil ferritin in 55v% with DLS
+- measure 100 mg/ml in 49v% with DLS to extend c1 dataset at higher temepratures
