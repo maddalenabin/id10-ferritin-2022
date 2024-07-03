@@ -58,10 +58,12 @@ def viscosity_glywater(T,weight_percent=0,volume_percent=0,waterVol=0,glycerolVo
     waterDen = (1-(((abs(T-4))/622)**1.7)) 	#Density of water (g/cm3)
 
     if (waterVol==0)|(glycerolVol==0):
+        glycerolDen_RT = (1273.3-0.6121*23)/1000 			#Density of Glycerol (g/cm3)
+        waterDen_RT = (1-(((abs(23-4))/622)**1.7)) 	#Density of water (g/cm3)
 
         if weight_percent!=0:
-            glycerolVol=weight_percent/glycerolDen
-            waterVol=1-glycerolVol
+            glycerolVol=weight_percent/glycerolDen_RT
+            waterVol=(1-weight_percent)/waterDen_RT
 
         if volume_percent!=0:
             glycerolVol=volume_percent
@@ -75,8 +77,8 @@ def viscosity_glywater(T,weight_percent=0,volume_percent=0,waterVol=0,glycerolVo
     mass_fraction=glycerolMass/totalMass
     vol_fraction= glycerolVol/(glycerolVol+waterVol)
 
-    #print ("Mass fraction of mixture =", round(mass_fraction,5))
-    #print ("Volume fraction of mixture =", round(vol_fraction,5))
+    print ("Mass fraction of mixture =", mass_fraction)
+    print ("Volume fraction of mixture =", vol_fraction)
 
 
     #Density calculator ----------------
