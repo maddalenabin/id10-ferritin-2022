@@ -236,3 +236,11 @@ NEXT
 2024-06-11
 - extrapolated viscosoity of 19mol% at low temperatures from xpcs NP of sharon's beamtime id10 llt
 - D from SE using the new viscosity of 19 mol% gly, fitted with VFT gives T0=140 kind
+
+2024-07-03
+- made the last version of the plot with difussion coefficient vs eta/T
+
+2024-07-08
+- Trying to estimate the heating due to the flux. I think it's less than 2.5 K if I consider the change in T and viscosity.
+  I plotted D(loewest flux) * [(T + ∆T) / T] * [eta / (eta + ∆eta)]. If I don't consider the change in viscosity,
+  I need ∆T≈25 K to account for the increase in the diffusion coefficient between lowest and highest flux.
