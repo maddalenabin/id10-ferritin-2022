@@ -16,4 +16,5 @@ echo dataset numb $2
 echo repetitions $3
 
 # python convert2hdf5.py --repsperspot $3 --proc $1 $2
-python test_convert.py --repsperspot $3 --proc $1 $2
+# python test_convert.py --repsperspot $3 --proc $1 $2
+python convert2hdf5_saxs.py --repsperspot $3 --proc $1 $2

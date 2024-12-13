@@ -17,7 +17,7 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
                 maskfile=maskfile,
                 setupfile=setupfile)
 
-    outdir = f'/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/results/{outdir}/p{slurm_id:02d}'
+    outdir = f'/cfs/data/pg/sdaqs/esrf-ebs/id10/sc5275/20220614/processed/results_saxs-2/{outdir}/p{slurm_id:02d}'
     if not os.path.isdir(outdir):
         os.makedirs(outdir, exist_ok=True)
     ana.mksavdir(outdir)
@@ -25,10 +25,11 @@ def run_analysis(proc_id, slurm_id, maskfile, setupfile, first, last, outdir, *a
     for folder in folders:
         ana.connect(folder)
     
-    step = 3
+    # step = 500
     for index in ana.meta.index.values:
-        for first_sub in range(first, last, step):
-            ana.analyze(index, 'saxs',  first=first_sub, last=first_sub+step, verbose=True)
+        # for first_sub in range(first, last, step):
+            # ana.analyze(index, 'saxs',  first=first_sub, last=first_sub+step, verbose=True)
+        ana.analyze(index, 'saxs',  first=first, last=last, verbose=True)
         
 
     
